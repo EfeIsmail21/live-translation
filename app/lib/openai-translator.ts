@@ -9,7 +9,7 @@ const openai = new OpenAI({
 export async function transcribeAudio(audioFile: File) {
   const transcription = await openai.audio.transcriptions.create({
     file: audioFile,
-    model: "whisper-1", // Using standard Whisper model
+    model: "whisper-1", // 
     response_format: "verbose_json",
   });
 
