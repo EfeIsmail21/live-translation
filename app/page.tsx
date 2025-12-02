@@ -449,7 +449,7 @@ export default function TranslatorPage() {
               ) : (
                 <>
                   <Mic size={16} />
-                  Antwoord in het {getLanguageName(detectedLang)}
+                  Reply in {getLanguageName(detectedLang)}
                 </>
               )}
             </button>
