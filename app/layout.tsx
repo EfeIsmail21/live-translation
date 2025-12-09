@@ -9,8 +9,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Railport Vertaling",
-  description: "AI vertaling voor H. Essers",
+  title: "GateTalk",
+  description: "Meertalige communicatie voor balie en chauffeur",
 };
 
 export default function RootLayout({

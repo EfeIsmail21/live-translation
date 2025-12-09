@@ -16,14 +16,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Convert audio to a proper File object with correct properties for OpenAI
+    // Convert audio to a proper File object
     const audioArrayBuffer = await audioFile.arrayBuffer();
     const mimeType = audioFile.type || 'audio/webm';
     const fileName = audioFile.name || 'recording.webm';
     const audioBlob = new Blob([audioArrayBuffer], { type: mimeType });
     const processedFile = new File([audioBlob], fileName, { type: mimeType });
 
-    // Process the audio through OpenAI
+    // Process the audio
     const result = await translateAudio(processedFile, targetLang);
 
     // Convert audio buffer to base64 for JSON transmission

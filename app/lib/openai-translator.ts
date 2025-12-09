@@ -1,5 +1,3 @@
-// lib/openai-translator.ts
-
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -9,7 +7,7 @@ const openai = new OpenAI({
 export async function transcribeAudio(audioFile: File) {
   const transcription = await openai.audio.transcriptions.create({
     file: audioFile,
-    model: "whisper-1", // 
+    model: "whisper-1",
     response_format: "verbose_json",
   });
 
@@ -20,12 +18,12 @@ export async function transcribeAudio(audioFile: File) {
 }
 
 export async function translateText(
-  text: string, 
-  sourceLang: string, 
+  text: string,
+  sourceLang: string,
   targetLang: string
 ) {
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini", // Goedkoper dan gpt-4o
+    model: "gpt-4o-mini",
     messages: [
       {
         role: "system",
@@ -39,22 +37,22 @@ export async function translateText(
         content: text
       }
     ],
-    temperature: 0.3, // Consistent translations
+    temperature: 0.3,
   });
 
   return completion.choices[0].message.content || text;
 }
 
 export async function textToSpeech(text: string, language: string) {
-  const voice = language === 'nl' ? 'alloy' : 'echo'; // Different voices
-  
+  const voice = language === 'nl' ? 'alloy' : 'echo';
+
   const mp3 = await openai.audio.speech.create({
-    model: "tts-1", // or "tts-1-hd" for higher quality
+    model: "tts-1",
     voice: voice,
     input: text,
   });
-  
-  return mp3; // Returns audio buffer
+
+  return mp3;
 }
 
 // All-in-one pipeline

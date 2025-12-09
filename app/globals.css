@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* H. Essers Brand Colors */
-  --essers-red: #ce2828;
-  --essers-dark: #212529;
-  --essers-white: #ffffff;
-  --essers-light: #f5f5f5;
-  --essers-red-hover: #b02323;
-  --essers-red-light: rgba(206, 40, 40, 0.1);
-  --essers-red-border: rgba(206, 40, 40, 0.3);
+  /* GateTalk Brand Colors */
+  --primary-red: #ce2828;
+  --primary-dark: #212529;
+  --primary-white: #ffffff;
+  --primary-light: #f5f5f5;
+  --primary-red-hover: #b02323;
+  --primary-red-light: rgba(206, 40, 40, 0.1);
+  --primary-red-border: rgba(206, 40, 40, 0.3);
 }
 
 @theme inline {
-  --color-essers-red: #ce2828;
-  --color-essers-dark: #212529;
-  --color-essers-white: #ffffff;
-  --color-essers-light: #f5f5f5;
+  --color-primary-red: #ce2828;
+  --color-primary-dark: #212529;
+  --color-primary-white: #ffffff;
+  --color-primary-light: #f5f5f5;
 }
 
 * {
@@ -25,8 +25,8 @@
 }
 
 body {
-  background: var(--essers-dark);
-  color: var(--essers-white);
+  background: var(--primary-dark);
+  color: var(--primary-white);
   font-family: var(--font-roboto), -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
