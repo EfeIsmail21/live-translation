@@ -166,6 +166,13 @@ export default function TranslatorPage() {
 
         try {
           const response = await fetch('/api/translate', { method: 'POST', body: formData });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('API Error:', errorText);
+            throw new Error(`Vertaling mislukt: ${response.status} ${response.statusText}`);
+          }
+
           const result = await response.json();
 
           if (isDriver) {
@@ -241,6 +248,7 @@ export default function TranslatorPage() {
     return (
       <div
         key={msg.id}
+        className="message-container"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -250,8 +258,9 @@ export default function TranslatorPage() {
         }}
       >
         {/* Main text bubble with play/pause button */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', maxWidth: '75%', flexDirection: isDriver ? 'row' : 'row-reverse' }}>
+        <div className="message-bubble-wrapper" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', maxWidth: '75%', flexDirection: isDriver ? 'row' : 'row-reverse' }}>
           <div
+            className="message-bubble"
             style={{
               flex: 1,
               padding: '20px 24px',
@@ -271,6 +280,7 @@ export default function TranslatorPage() {
           {/* Play/Pause button */}
           <button
             onClick={() => handleToggleAudio(msg.id, msg.audioBase64)}
+            className="play-button"
             style={{
               width: '48px',
               height: '48px',
@@ -295,15 +305,16 @@ export default function TranslatorPage() {
             title={isPlaying ? "Pauzeer bericht" : "Speel bericht af"}
           >
             {isPlaying ? (
-              <Pause size={24} color="#ffffff" fill="#ffffff" />
+              <Pause className="play-icon" size={24} color="#ffffff" fill="#ffffff" />
             ) : (
-              <Volume2 size={24} color="#ffffff" />
+              <Volume2 className="play-icon" size={24} color="#ffffff" />
             )}
           </button>
         </div>
 
         {/* Light translation underneath */}
         <div
+          className="message-translation"
           style={{
             maxWidth: '75%',
             marginTop: '8px',
@@ -327,27 +338,28 @@ export default function TranslatorPage() {
       {/* Header */}
       <header style={{
         textAlign: 'center',
-        padding: '24px',
+        padding: '16px',
         borderBottom: '2px solid #ce2828',
         background: '#ffffff',
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '24px',
+        gap: '12px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
       }}>
-        <h1 style={{ fontSize: '42px', fontWeight: 'bold', color: '#212529', margin: 0, fontFamily: 'Roboto' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#212529', margin: 0, fontFamily: 'Roboto' }}>
           GateTalk
         </h1>
         <button
           onClick={clearConversation}
           style={{
-            padding: '10px 20px',
+            padding: '8px 16px',
             background: '#ffffff',
             color: '#ce2828',
             border: '2px solid #ce2828',
             borderRadius: '8px',
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: '600',
             cursor: 'pointer',
             fontFamily: 'Roboto',
@@ -367,7 +379,7 @@ export default function TranslatorPage() {
       </header>
 
       {/* Main Layout: Left Mic | Conversation | Right Mic */}
-      <div style={{
+      <div className="mobile-layout" style={{
         display: 'flex',
         flex: 1,
         gap: '24px',
@@ -377,7 +389,7 @@ export default function TranslatorPage() {
       }}>
 
         {/* Left Side - Driver Mic */}
-        <div style={{
+        <div className="mic-section" style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -385,7 +397,7 @@ export default function TranslatorPage() {
           gap: '16px',
           minWidth: '220px'
         }}>
-          <h3 style={{
+          <h3 className="mic-title" style={{
             fontSize: '22px',
             fontWeight: 'bold',
             color: '#4a90e2',
@@ -398,7 +410,7 @@ export default function TranslatorPage() {
           <button
             onClick={() => handleRecording(true)}
             disabled={driverRecording.isProcessing}
-            className={driverRecording.isRecording ? 'pulse-glow' : ''}
+            className={`mic-button ${driverRecording.isRecording ? 'pulse-glow' : ''}`}
             style={{
               width: '180px',
               height: '180px',
@@ -428,15 +440,15 @@ export default function TranslatorPage() {
             }}
           >
             {driverRecording.isProcessing ? (
-              <Loader2 size={56} color="#ffffff" style={{ animation: 'spin 1s linear infinite' }} />
+              <Loader2 className="icon-size" size={56} color="#ffffff" style={{ animation: 'spin 1s linear infinite' }} />
             ) : driverRecording.isRecording ? (
-              <Square size={56} color="#ffffff" />
+              <Square className="icon-size" size={56} color="#ffffff" />
             ) : (
-              <Mic size={56} color="#ffffff" />
+              <Mic className="icon-size" size={56} color="#ffffff" />
             )}
           </button>
 
-          <p style={{
+          <p className="mic-status" style={{
             fontSize: '15px',
             color: '#666666',
             textAlign: 'center',
@@ -451,6 +463,7 @@ export default function TranslatorPage() {
         {/* Center - Conversation Area */}
         <div
           ref={conversationScrollRef}
+          className="conversation-area"
           style={{
             flex: 1,
             background: '#ffffff',
@@ -476,8 +489,8 @@ export default function TranslatorPage() {
               fontFamily: 'Roboto',
               gap: '16px'
             }}>
-              <p style={{ margin: 0, fontSize: '20px', fontWeight: '500' }}>Welkom bij GateTalk</p>
-              <p style={{ margin: 0, fontSize: '16px', textAlign: 'center', maxWidth: '400px' }}>
+              <p className="welcome-title" style={{ margin: 0, fontSize: '20px', fontWeight: '500' }}>Welkom bij GateTalk</p>
+              <p className="welcome-text" style={{ margin: 0, fontSize: '16px', textAlign: 'center', maxWidth: '400px' }}>
                 Klik op de microfoon of gebruik de sneltoets om een gesprek te starten
               </p>
             </div>
@@ -487,7 +500,7 @@ export default function TranslatorPage() {
         </div>
 
         {/* Right Side - Counter Mic */}
-        <div style={{
+        <div className="mic-section" style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -495,7 +508,7 @@ export default function TranslatorPage() {
           gap: '16px',
           minWidth: '220px'
         }}>
-          <h3 style={{
+          <h3 className="mic-title" style={{
             fontSize: '22px',
             fontWeight: 'bold',
             color: '#ce2828',
@@ -508,7 +521,7 @@ export default function TranslatorPage() {
           <button
             onClick={() => handleRecording(false)}
             disabled={counterRecording.isProcessing}
-            className={counterRecording.isRecording ? 'pulse-glow' : ''}
+            className={`mic-button ${counterRecording.isRecording ? 'pulse-glow' : ''}`}
             style={{
               width: '180px',
               height: '180px',
@@ -538,15 +551,15 @@ export default function TranslatorPage() {
             }}
           >
             {counterRecording.isProcessing ? (
-              <Loader2 size={56} color="#ffffff" style={{ animation: 'spin 1s linear infinite' }} />
+              <Loader2 className="icon-size" size={56} color="#ffffff" style={{ animation: 'spin 1s linear infinite' }} />
             ) : counterRecording.isRecording ? (
-              <Square size={56} color="#ffffff" />
+              <Square className="icon-size" size={56} color="#ffffff" />
             ) : (
-              <Mic size={56} color="#ffffff" />
+              <Mic className="icon-size" size={56} color="#ffffff" />
             )}
           </button>
 
-          <p style={{
+          <p className="mic-status" style={{
             fontSize: '15px',
             color: '#666666',
             textAlign: 'center',

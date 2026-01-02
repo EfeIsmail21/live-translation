@@ -44,12 +44,52 @@ export async function translateText(
 }
 
 export async function textToSpeech(text: string, language: string) {
-  const voice = language === 'nl' ? 'alloy' : 'echo';
+  // Select voice based on language for more natural pronunciation
+  // Available voices: alloy, echo, fable, onyx, nova, shimmer
+  let voice: 'alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer';
+
+  switch (language.toLowerCase()) {
+    case 'nl':
+    case 'dutch':
+      voice = 'nova'; // Female voice, clearer for Dutch
+      break;
+    case 'en':
+    case 'english':
+      voice = 'echo'; // Male voice for English
+      break;
+    case 'fr':
+    case 'french':
+      voice = 'shimmer'; // Female voice, good for Romance languages
+      break;
+    case 'de':
+    case 'german':
+      voice = 'onyx'; // Male voice, good for Germanic languages
+      break;
+    case 'es':
+    case 'spanish':
+      voice = 'shimmer'; // Female voice for Spanish
+      break;
+    case 'it':
+    case 'italian':
+      voice = 'nova'; // Female voice for Italian
+      break;
+    case 'pl':
+    case 'polish':
+      voice = 'alloy'; // Neutral voice for Polish
+      break;
+    case 'ro':
+    case 'romanian':
+      voice = 'shimmer'; // Female voice for Romanian
+      break;
+    default:
+      voice = 'alloy'; // Default neutral voice
+  }
 
   const mp3 = await openai.audio.speech.create({
-    model: "tts-1",
+    model: "tts-1-hd", // Use HD model for better quality and pronunciation
     voice: voice,
     input: text,
+    speed: 0.95, // Slightly slower for clarity
   });
 
   return mp3;

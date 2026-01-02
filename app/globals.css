@@ -105,3 +105,130 @@ body {
   background-size: 1000px 100%;
   animation: shimmer 2s infinite linear;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Stack layout vertically on mobile */
+  .mobile-layout {
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding: 16px 12px !important;
+  }
+
+  /* Mic sections on mobile */
+  .mic-section {
+    min-width: unset !important;
+    width: 100% !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 16px !important;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  /* Mic titles on mobile */
+  .mic-title {
+    font-size: 18px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Mic buttons smaller on mobile */
+  .mic-button {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  /* Icon sizes on mobile */
+  .icon-size {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Mic status text */
+  .mic-status {
+    font-size: 13px !important;
+    margin-top: 0 !important;
+    max-width: 100px;
+  }
+
+  /* Conversation area on mobile */
+  .conversation-area {
+    padding: 16px !important;
+    min-height: 400px !important;
+    max-height: 50vh !important;
+  }
+
+  /* Message bubbles on mobile */
+  .message-bubble-wrapper {
+    max-width: 90% !important;
+    gap: 8px !important;
+  }
+
+  .message-bubble {
+    padding: 14px 16px !important;
+    font-size: 16px !important;
+  }
+
+  .message-translation {
+    max-width: 90% !important;
+    font-size: 13px !important;
+  }
+
+  /* Play buttons on mobile */
+  .play-button {
+    width: 40px !important;
+    height: 40px !important;
+    margin-top: 8px !important;
+  }
+
+  .play-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* Welcome messages on mobile */
+  .welcome-title {
+    font-size: 18px !important;
+  }
+
+  .welcome-text {
+    font-size: 14px !important;
+    padding: 0 12px;
+  }
+
+  .message-container {
+    margin-bottom: 16px !important;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .mobile-layout {
+    gap: 16px !important;
+    padding: 24px 16px !important;
+  }
+
+  .mic-button {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .icon-size {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .conversation-area {
+    padding: 24px !important;
+  }
+
+  .message-bubble {
+    font-size: 18px !important;
+    padding: 16px 20px !important;
+  }
+
+  .mic-title {
+    font-size: 20px !important;
+  }
+}
